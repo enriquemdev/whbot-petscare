@@ -11,6 +11,9 @@ importers:
       express:
         specifier: ^4.21.2
         version: 4.21.2
+      qrcode-terminal:
+        specifier: ^0.12.0
+        version: 0.12.0
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -659,6 +662,10 @@ packages:
     resolution: {integrity: sha512-7+UhmYa7wxPh2oMRwA++k8UGVDxh3YdWFB52r9C3tM81T6BU7cuusUSxImz0GEYSOYUKk/YzIhkQ6+vc0gHbxQ==}
     engines: {node: '>=14.1.0'}
     deprecated: < 22.8.2 is no longer supported
+
+  qrcode-terminal@0.12.0:
+    resolution: {integrity: sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==}
+    hasBin: true
 
   qs@6.13.0:
     resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
@@ -1625,6 +1632,8 @@ snapshots:
       - encoding
       - supports-color
       - utf-8-validate
+
+  qrcode-terminal@0.12.0: {}
 
   qs@6.13.0:
     dependencies:

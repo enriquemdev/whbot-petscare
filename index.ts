@@ -1,8 +1,14 @@
 import express, { Express, Request, Response } from "express";
 const { Client } = require('whatsapp-web.js');
+const qrcode = require('qrcode-terminal');
+import { getGroupChatId, getGroupChatName } from "./helpers";
 
 const app: Express = express();
-const client = new Client();
+const client = new Client({
+    puppeteer: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox'], // to work on no gui systems and if the system runs with root privileges
+    }
+});
 const port = 3000;
 
 async function initializeWhatsappClient () {
@@ -12,6 +18,7 @@ async function initializeWhatsappClient () {
         });
         
         client.on('qr', (qr: any) => {
+            qrcode.generate(qr, {small: true});
             console.log('Whatsapp QR RECEIVED', qr);
         });
 
@@ -34,7 +41,6 @@ async function startWebServer() {
 
 
         // END WEB ROUTES
-
         app.listen(port, () => {
             console.log(`Servidor iniciado en http://localhost:${port}`);
         })
