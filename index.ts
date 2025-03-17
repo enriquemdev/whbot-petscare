@@ -1,7 +1,11 @@
 import express, { Express, Request, Response } from "express";
+import mongoose, {Schema, Document } from 'mongoose';
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+import dotenv from 'dotenv';
 import { getGroupChatId, getGroupChatName } from "./helpers";
+
+dotenv.config();
 
 const app: Express = express();
 const client = new Client({
@@ -10,6 +14,22 @@ const client = new Client({
     }
 });
 const port = 3000;
+
+app.use(express.json());
+
+// Connect to mongodb with mongoose
+// {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+// } as mongoose.ConnectOptions
+mongoose.connect(process.env.MONGODB_URI!)
+.then(() => {
+    console.log('Connected to MongoDB');
+})
+.catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
+})
+
 
 async function initializeWhatsappClient () {
     try {
@@ -33,10 +53,11 @@ async function startWebServer() {
     try {
         await initializeWhatsappClient();
 
-        // WEB ROUTES
+        // WEB ROUTES (FUNCTIONS)
 
-        app.get('/', (req: Request, res: Response) => {
-            res.send('test');
+        app.get('/', async (req: Request, res: Response) => {
+            const groupChatName = await getGroupChatName();
+            res.send(groupChatName);
         });
 
 

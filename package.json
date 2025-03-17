@@ -11,7 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.12.1",
     "qrcode-terminal": "^0.12.0",
     "typescript": "^5.8.2",
     "whatsapp-web.js": "^1.26.0"
