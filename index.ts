@@ -3,7 +3,7 @@ import mongoose, {Schema, Document } from 'mongoose';
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 import dotenv from 'dotenv';
-import { getGroupChatName } from "./helpers";
+import { getGroupChatName, getGroupChatId } from "./helpers";
 
 dotenv.config();
 
@@ -57,11 +57,22 @@ async function startWebServer() {
 
         app.get('/', async (req: Request, res: Response) => {
             console.log('yes');
+            try {
+
+            } catch (error) {
+
+            }
             const groupChatName = await getGroupChatName();
-            res.send(groupChatName);
+
+            if (groupChatName) {
+                const groupChatId = await getGroupChatId(groupChatName, client);
+                res.send(groupChatId);
+            } else {
+                // groupChatName es undefined, manejar el error o enviar una respuesta adecuada
+                res.status(404).send('Nombre del grupo no encontrado'); // Ejemplo: devolver un error 404
+            }
+           
         });
-
-
 
         // END WEB ROUTES
         app.listen(port, () => {
