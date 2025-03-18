@@ -3,7 +3,7 @@ import mongoose, {Schema, Document } from 'mongoose';
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 import dotenv from 'dotenv';
-import { getGroupChatId, getGroupChatName } from "./helpers";
+import { getGroupChatName } from "./helpers";
 
 dotenv.config();
 
@@ -56,14 +56,16 @@ async function startWebServer() {
         // WEB ROUTES (FUNCTIONS)
 
         app.get('/', async (req: Request, res: Response) => {
+            console.log('yes');
             const groupChatName = await getGroupChatName();
             res.send(groupChatName);
         });
 
 
+
         // END WEB ROUTES
         app.listen(port, () => {
-            console.log(`Servidor iniciado en http://localhost:${port}`);
+            console.log(`Servidor web iniciado en http://localhost:${port}`);
         })
     } catch (error) {
         console.error('Error starting web server:', error);
